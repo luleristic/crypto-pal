@@ -1,6 +1,8 @@
+import RegisterLayout from "../components/auth/RegisterLayout"
+
 function Register() {
   return (
-    <div>Register</div>
+    <RegisterLayout></RegisterLayout>
   )
 }
 

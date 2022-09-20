@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-import classes from './LoginForm.module.css'
+import classes from "./LoginForm.module.css";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -8,7 +8,7 @@ function LoginForm() {
     password: "",
   });
 
-  const {email, password} = formData;
+  const { email, password } = formData;
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -19,23 +19,44 @@ function LoginForm() {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-  }
+
+    const formData = {
+      email,
+      password,
+    };
+
+    console.log(formData);
+  };
 
   return (
     <>
       <form onSubmit={onSubmitHandler} className={classes.form}>
         <div className={classes.input_holder}>
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" value={email} onChange={onChange} />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={email}
+            onChange={onChange}
+          />
         </div>
         <div className={classes.input_holder}>
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" id="password" value={password} onChange={onChange} />
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={onChange}
+          />
         </div>
-        <button type='submit' className={classes.submit_button}>Login</button>
+        <button type="submit" className={classes.submit_button}>
+          Login
+        </button>
       </form>
     </>
-  )
+  );
 }
 
-export default LoginForm
+export default LoginForm;

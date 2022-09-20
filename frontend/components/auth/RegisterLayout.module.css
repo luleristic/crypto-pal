@@ -1,7 +1,7 @@
-.login_layout {
+.register_layout {
   display: flex;
   flex-direction: column;
-  margin-top: 15vh;
+  margin-top: 5vh;
 }
 
 .heading {

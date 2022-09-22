@@ -1,14 +1,37 @@
+import { useSelector, useDispatch } from "react-redux";
+import { login, reset } from "../../features/auth/authSlice";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 import classes from "./LoginForm.module.css";
 
 function LoginForm() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
   const { email, password } = formData;
+
+  const dispatch = useDispatch();
+
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+
+  useEffect(() => {
+    if (isError) {
+      console.log(message);
+    }
+
+    if (isSuccess || user) {
+      router.push("/");
+    }
+
+    dispatch(reset());
+  }, [user, isError, isSuccess, message, dispatch]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -20,13 +43,17 @@ function LoginForm() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    const formData = {
+    const userData = {
       email,
       password,
     };
 
-    console.log(formData);
+    dispatch(login(userData));
   };
+
+  if(isLoading) {
+    console.log('loading')
+  }
 
   return (
     <>

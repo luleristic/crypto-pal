@@ -13,6 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/users", require("./routes/authRoutes"));
+app.use("/api/coin", require("./routes/authRoutes"));
+
 
 app.use(errorHandler);
 

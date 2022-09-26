@@ -21,7 +21,7 @@ function RegisterForm() {
   const dispatch = useDispatch();
 
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
+  const { user, isLoading, isError, isSuccess, message, token } = useSelector(
     (state) => state.auth
   );
 
@@ -30,7 +30,7 @@ function RegisterForm() {
       console.log(message);
     }
 
-    if (isSuccess || user) {
+    if (isSuccess || localStorage.getItem('token')) {
       router.push('/');
     }
 
@@ -105,7 +105,7 @@ function RegisterForm() {
           />
         </div>
         <button type="submit" className={classes.submit_button}>
-          Login
+          Register
         </button>
       </form>
     </>

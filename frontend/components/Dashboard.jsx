@@ -1,7 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
 
-import {reset, getUser} from '../features/auth/authSlice'
-import { useEffect } from "react";
 
 function Dashboard(props) {
 

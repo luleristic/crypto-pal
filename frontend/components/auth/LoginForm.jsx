@@ -26,7 +26,8 @@ function LoginForm() {
       console.log(message);
     }
 
-    if (isSuccess || user) {
+    if (isSuccess || localStorage.getItem('token')) {
+      console.log(isSuccess);
       router.push("/");
     }
 

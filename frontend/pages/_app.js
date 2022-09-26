@@ -40,6 +40,7 @@ function SetUser({ children }) {
         });
         
         dispatch(getUser(storedToken.token));
+        console.log('test');
         reset();
     } 
   }, []);

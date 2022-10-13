@@ -23,7 +23,10 @@ function MainNavbar() {
             {token && (
               <>
                 <Link href="/">
-                  <a className={classes.link}> Dashboard</a>
+                  <a className={classes.link}>Dashboard</a>
+                </Link>
+                <Link href="/inbox">
+                  <a className={classes.link}>Inbox</a>
                 </Link>
                 <Logout>
                   <span className={classes.link}>Logout</span>

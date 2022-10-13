@@ -65,7 +65,6 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new Error("Invalid credentials, please try again");    
   }
 
-  res.status(200).json({ message: "nice" });
 });
 
 //@desc Get user data by JWT

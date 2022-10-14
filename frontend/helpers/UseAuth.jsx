@@ -28,7 +28,7 @@ function UseAuth() {
             },
           })
           .then((response) => {
-            if (!response.data) {
+            if (!response.data && !response.data.user._id) {
               localStorage.removeItem("token");
               router.push("/login");
             }

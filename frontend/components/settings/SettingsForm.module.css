@@ -1,0 +1,46 @@
+.heading {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5vh;
+}
+
+.input_holder {
+  display: inline-flex;
+  flex-direction: column;
+  width: 33%;
+}
+
+.input_holder label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 16px;
+  margin-bottom: 5px;
+}
+
+.input_holder input {
+  height: 40px;
+  border-width: 1px;
+  border-radius: 30px;
+  padding: 0px 16px;
+  margin-bottom: 20px;
+}
+
+.submit_button {
+  background-color: #fff;
+  border: 1px solid #121212;
+  padding: 7px 20px;
+  min-width: 140px;
+  margin-top: 15px;
+  border-radius: 4px;
+}
+
+.submit_button:hover {
+  background-color: #121212;
+  color: #fff;
+}

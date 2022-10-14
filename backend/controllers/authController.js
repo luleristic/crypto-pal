@@ -83,9 +83,9 @@ const getUser = asyncHandler(async (req, res) => {
 //@route PUT /api/users/me
 //@access Private
 const editUser = asyncHandler(async (req, res) => {
-  const { newFirstName, lastName, newLastName, email, newEmail, password, newPassword } = req.body;
+  const { newFirstName, newLastName, email, newEmail } = req.body;
 
-  if (!email || !newEmail || !password || !newPassword) {
+  if (!email || !newEmail || !newFirstName || !newLastName) {
     res.status(400);
     throw new Error("Please add all fields");
   }
@@ -93,14 +93,10 @@ const editUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
 
-  if (!user || !(await bcrypt.compare(password, user.password))) {
+  if (!user) {
     res.status(401);
     throw new Error("Invalid user data! Please try again");
   }
-
-  //Hash the password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(newPassword, salt);
 
   const conditions = {
     _id: user._id,
@@ -110,7 +106,6 @@ const editUser = asyncHandler(async (req, res) => {
     firstName: newFirstName,
     lastName: newLastName,
     email: newEmail,
-    password : hashedPassword
   }
 
   const updatedUser = User.findOneAndUpdate(conditions, update, (error, result) => {
@@ -120,7 +115,9 @@ const editUser = asyncHandler(async (req, res) => {
     }
     else {
       res.status(200).json({
-        message: 'Successfuly changed'
+        firstName: newFirstName,
+        lastName: newLastName,
+        email: newEmail
       });
     }
   });

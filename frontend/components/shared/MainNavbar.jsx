@@ -31,6 +31,9 @@ function MainNavbar() {
                 <Link href="/profile">
                   <a className={classes.link}>Profile</a>
                 </Link>
+                <Link href="/settings">
+                  <a className={classes.link}>Settings</a>
+                </Link>
                 <Logout>
                   <span className={classes.link}>Logout</span>
                 </Logout>

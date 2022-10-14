@@ -105,7 +105,7 @@ function RegisterForm() {
           />
         </div>
         <button type="submit" className={classes.submit_button}>
-          Register
+          Submit
         </button>
       </form>
     </>

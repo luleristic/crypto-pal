@@ -113,12 +113,9 @@ const editUser = asyncHandler(async (req, res) => {
     password : hashedPassword
   }
 
-  console.log(update)
-
-  const updatedUser = await User.findOneAndUpdate(conditions, update, (error, result) => {
+  const updatedUser = User.findOneAndUpdate(conditions, update, (error, result) => {
     if(error) {
       res.status(400);
-      console.log('asd');
       throw new Error(error)
     }
     else {
@@ -126,7 +123,7 @@ const editUser = asyncHandler(async (req, res) => {
         message: 'Successfuly changed'
       });
     }
-  })
+  });
 });
 
 const generateToken = (id) => {

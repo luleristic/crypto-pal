@@ -1,0 +1,11 @@
+.contain {
+  display: flex;
+  justify-content: center;
+}
+.layout {
+  margin-top: 5vh;
+  max-width: 1000px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}

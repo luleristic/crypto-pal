@@ -38,7 +38,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     res.status(201).json({
-      token: generateToken(user._id)
+      token: generateToken(user._id),
     });
   } else {
     res.status(400);
@@ -58,13 +58,12 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(200).json({
-      token: generateToken(user._id)
+      token: generateToken(user._id),
     });
   } else {
     res.status(400);
-    throw new Error("Invalid credentials, please try again");    
+    throw new Error("Invalid credentials, please try again");
   }
-
 });
 
 //@desc Get user data by JWT
@@ -76,18 +75,69 @@ const getUser = asyncHandler(async (req, res) => {
     id: user._id,
     firstName: user.firstName,
     lastName: user.lastName,
-    email: user.email
+    email: user.email,
   });
 });
 
-const generateToken = (id) => {
-  return jwt.sign({id}, process.env.JWT_SECRET, {
-    expiresIn: '30d'
+//@desc Edit Basic User Info
+//@route PUT /api/users/me
+//@access Private
+const editUser = asyncHandler(async (req, res) => {
+  const { newFirstName, lastName, newLastName, email, newEmail, password, newPassword } = req.body;
+
+  if (!email || !newEmail || !password || !newPassword) {
+    res.status(400);
+    throw new Error("Please add all fields");
+  }
+
+  const user = await User.findOne({ email });
+
+
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    res.status(401);
+    throw new Error("Invalid user data! Please try again");
+  }
+
+  //Hash the password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+  const conditions = {
+    _id: user._id,
+  };
+
+  const update = {
+    firstName: newFirstName,
+    lastName: newLastName,
+    email: newEmail,
+    password : hashedPassword
+  }
+
+  console.log(update)
+
+  const updatedUser = await User.findOneAndUpdate(conditions, update, (error, result) => {
+    if(error) {
+      res.status(400);
+      console.log('asd');
+      throw new Error(error)
+    }
+    else {
+      res.status(200).json({
+        message: 'Successfuly changed'
+      });
+    }
   })
-}
+});
+
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+};
 
 module.exports = {
   registerUser,
   loginUser,
   getUser,
+  editUser
 };

@@ -28,6 +28,9 @@ function MainNavbar() {
                 <Link href="/inbox">
                   <a className={classes.link}>Inbox</a>
                 </Link>
+                <Link href="/profile">
+                  <a className={classes.link}>Profile</a>
+                </Link>
                 <Logout>
                   <span className={classes.link}>Logout</span>
                 </Logout>

@@ -1,0 +1,43 @@
+.img_holder {
+    width: fit-content;
+}
+
+.avatar {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.info, .stats {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.info p {
+    font-size: 30px;
+    margin-bottom: 0;
+    margin-right: 30px;
+}
+
+.info button{
+    border-width: 1px;
+    background-color: #fff;
+    border-radius: 10px;
+    max-height: 30px;
+}
+
+.stats div:first-child {
+    margin-right: 30px;
+}
+
+.stats p {
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+.fullname {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+

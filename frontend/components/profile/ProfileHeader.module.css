@@ -1,5 +1,6 @@
 .img_holder {
     width: fit-content;
+    position: relative;
 }
 
 .avatar {
@@ -41,3 +42,23 @@
     text-transform: capitalize;
 }
 
+.img_overlay {
+    background-color: #000;
+    opacity: 0.3;
+    width: 100%;
+    height: 150px;
+    position: absolute;
+    top: 0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_img_btn {
+    background: unset;
+}
+
+.add_img_btn svg {
+    fill: #fff;
+}

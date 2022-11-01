@@ -8,8 +8,8 @@ const authSchema = mongoose.Schema(
     },
     lastName: {
       type: String,
-      required: [true, "Please add a last name"]
-    },  
+      required: [true, "Please add a last name"],
+    },
     email: {
       type: String,
       required: [true, "Please add an email"],
@@ -19,10 +19,13 @@ const authSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
     },
+    avatar: {
+      type: String,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model('User', authSchema);
+module.exports = mongoose.model("User", authSchema);

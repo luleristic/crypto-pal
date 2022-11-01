@@ -18,6 +18,23 @@ const editUser = async (body, token) => {
   }
 }
 
+const editUserAvatar = async (body, token) => {
+  try {
+    const response = await axios.post(API_URL + "/me/avatar", body, {
+      headers: {
+        Authorization : 'Bearer ' + token
+      }
+    });
+    
+    console.log(response)
+    return response.data;
+  }
+  catch(err) {
+    return err;
+  }
+}
+
 module.exports = {
-  editUser
+  editUser,
+  editUserAvatar
 }

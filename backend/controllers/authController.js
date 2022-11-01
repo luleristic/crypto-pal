@@ -92,7 +92,6 @@ const editUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
-
   if (!user) {
     res.status(401);
     throw new Error("Invalid user data! Please try again");
@@ -106,21 +105,37 @@ const editUser = asyncHandler(async (req, res) => {
     firstName: newFirstName,
     lastName: newLastName,
     email: newEmail,
-  }
+  };
 
-  const updatedUser = User.findOneAndUpdate(conditions, update, (error, result) => {
-    if(error) {
-      res.status(400);
-      throw new Error(error)
+  const updatedUser = User.findOneAndUpdate(
+    conditions,
+    update,
+    (error, result) => {
+      if (error) {
+        res.status(400);
+        throw new Error(error);
+      } else {
+        res.status(200).json({
+          firstName: newFirstName,
+          lastName: newLastName,
+          email: newEmail,
+        });
+      }
     }
-    else {
-      res.status(200).json({
-        firstName: newFirstName,
-        lastName: newLastName,
-        email: newEmail
-      });
-    }
-  });
+  );
+});
+
+//@desc Edit User Avatar Image
+//@route POST /api/users/me/avatar
+//@access Private
+const editUserAvatar = asyncHandler(async (req, res) => {
+  const photo = req.file.filename;
+
+  console.log('asd');
+
+  res.status(200).json({
+    message: 'success'
+  })
 });
 
 const generateToken = (id) => {
@@ -133,5 +148,6 @@ module.exports = {
   registerUser,
   loginUser,
   getUser,
-  editUser
+  editUser,
+  editUserAvatar
 };

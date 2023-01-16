@@ -1,9 +1,12 @@
 const asyncHandler = require("express-async-handler");
+
 const User = require("../models/authModel");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const e = require("express");
+const crypto = require("crypto");
+
+const { uploadImage, deleteAvatarFolder } = require("../helpers/upload");
 
 //@desc Register a user
 //@route POST /api/users
@@ -76,6 +79,7 @@ const getUser = asyncHandler(async (req, res) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    avatar: user.avatar
   });
 });
 
@@ -129,13 +133,44 @@ const editUser = asyncHandler(async (req, res) => {
 //@route POST /api/users/me/avatar
 //@access Private
 const editUserAvatar = asyncHandler(async (req, res) => {
-  const photo = req.file.filename;
+  const { userId, image, ext, imageName } = req.body;
+  if (!userId || !image || !ext || !imageName) {
+    res.status(400);
+    throw new Error("Invalid body");
+  }
 
-  console.log('asd');
+  //Delete the previous image
+  await deleteAvatarFolder(`${userId}/avatar`);
+
+  console.log(deleteAvatarFolder);
+
+  const imgId = crypto.randomBytes(16).toString("hex");
+
+  const uploadedImage = await uploadImage(userId, ext, image, imgId);
+
+  const conditions = {
+    _id: userId,
+  };
+
+  const update = {
+    avatar: uploadedImage.Key,
+  };
+
+  const updatedUser = User.findOneAndUpdate(
+    conditions,
+    update,
+    (error, result) => {
+      if (error) {
+        res.status(400);
+        throw new Error(error);
+      }
+    }
+  );
 
   res.status(200).json({
-    message: 'success'
-  })
+    message: "Uploaded successfully!",
+    imageInfo: uploadedImage,
+  });
 });
 
 const generateToken = (id) => {
@@ -149,5 +184,5 @@ module.exports = {
   loginUser,
   getUser,
   editUser,
-  editUserAvatar
+  editUserAvatar,
 };

@@ -1,40 +1,51 @@
 import axios from "axios";
 
-const API_URL = "api/users";
-
+const API_URL = "api";
 
 const editUser = async (body, token) => {
   try {
-    const response = await axios.put(API_URL + "/me", body , {
+    const response = await axios.put(API_URL + "/users/me", body, {
       headers: {
-        Authorization : 'Bearer ' + token 
-      }
+        Authorization: "Bearer " + token,
+      },
     });
-  
+
     return response.data;
-  }
-  catch(err) {
+  } catch (err) {
     return err;
   }
-}
+};
 
 const editUserAvatar = async (body, token) => {
   try {
-    const response = await axios.post(API_URL + "/me/avatar", body, {
+    const response = await axios.post(API_URL + "/users/me/avatar", body, {
       headers: {
-        Authorization : 'Bearer ' + token
-      }
+        Authorization: "Bearer " + token,
+      },
     });
-    
-    console.log(response)
+
     return response.data;
+  } catch (err) {
+    return err;
   }
-  catch(err) {
+};
+
+const getSignedUrl = async (body, token) => {
+  try {
+    const response = await axios.post(API_URL + "/posts/getSignedUrl", body, {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    })
+    return response.data
+  }
+  catch (err) {
     return err;
   }
 }
 
 module.exports = {
   editUser,
-  editUserAvatar
-}
+  editUserAvatar,
+  getSignedUrl
+};

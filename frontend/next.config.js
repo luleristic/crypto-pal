@@ -1,4 +1,7 @@
 module.exports = {
+  images: {
+    domains: ['buzzlypostimages.s3.amazonaws.com']
+  },
   async rewrites() {
       return [
         {

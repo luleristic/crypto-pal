@@ -142,7 +142,6 @@ const editUserAvatar = asyncHandler(async (req, res) => {
   //Delete the previous image
   await deleteAvatarFolder(`${userId}/avatar`);
 
-  console.log(deleteAvatarFolder);
 
   const imgId = crypto.randomBytes(16).toString("hex");
 

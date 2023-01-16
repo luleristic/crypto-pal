@@ -82,6 +82,9 @@ export const authSlice = createSlice({
     },
     setUserAvatar: (state, action) => {
       state.user.avatar = action.payload
+    },
+    setUserAvatarUrl: (state, action) => {
+      state.user.avatarUrl = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -140,5 +143,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { reset, setToken, setUser, setUserAvatar } = authSlice.actions;
+export const { reset, setToken, setUser, setUserAvatar, setUserAvatarUrl } = authSlice.actions;
 export default authSlice.reducer;

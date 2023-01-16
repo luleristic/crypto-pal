@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import { setUserAvatar } from '../../features/auth/authSlice'
+import {  useDispatch, useSelector } from "react-redux";
+import {  useEffect } from "react";
 import axios from "axios";
 
+import { setUserAvatarUrl } from "../../features/auth/authSlice";
 import classes from "./ProfileHeader.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,15 +11,13 @@ import EditAvatar from "./EditAvatar";
 
 function ProfileHeader() {
   const { user, token } = useSelector((state) => state.auth);
-  const [avatar, setAvatar] = useState(defaultAvatar);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     const body = {
       imageKey: user.avatar,
     };
-    if (token && body.imageKey) {
+    if (token && body.imageKey && !user.avatarUrl) {
       axios
         .post("api/posts/getSignedUrl", body, {
           headers: {
@@ -28,19 +26,19 @@ function ProfileHeader() {
         })
         .then((response) => {
           //Sets up the image link in JSX bellow
-          setAvatar(response.data.url);
+          dispatch(setUserAvatarUrl(response.data.url));
         })
         .catch((error) => {
           console.log(error.data.message);
         });
     }
-  }, [user, token, avatar, setAvatar]);
+  }, [user, token]);
 
   return (
     <>
       <div className={classes.img_holder}>
         <Image
-          src={avatar}
+          src={user.avatarUrl ? user.avatarUrl : defaultAvatar}
           width={150}
           height={150}
           className={classes.avatar}

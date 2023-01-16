@@ -8,7 +8,7 @@ import axios from "axios";
 function UseAuth() {
   const router = useRouter();
 
-  const { user, isSuccess } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 

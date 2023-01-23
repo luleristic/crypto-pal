@@ -16,3 +16,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.image-button {
+  background-color: transparent;
+  padding: 0;
+  border: 0px;  
+}

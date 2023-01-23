@@ -34,18 +34,30 @@ const getSignedUrl = async (body, token) => {
   try {
     const response = await axios.post(API_URL + "/posts/getSignedUrl", body, {
       headers: {
-        Authorization: "Bearer " + token
-      }
-    })
-    return response.data
-  }
-  catch (err) {
+        Authorization: "Bearer " + token,
+      },
+    });
+    return response.data;
+  } catch (err) {
     return err;
   }
-}
+};
 
+const addPost = async (body, token) => {
+  try {
+    const response = await axios.post(API_URL + "/posts/add", body, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+};
 module.exports = {
   editUser,
   editUserAvatar,
-  getSignedUrl
+  getSignedUrl,
+  addPost
 };

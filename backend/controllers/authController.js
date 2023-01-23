@@ -75,16 +75,16 @@ const loginUser = asyncHandler(async (req, res) => {
 const getUser = asyncHandler(async (req, res) => {
   const user = req.user;
   res.status(200).json({
-    id: user._id,
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    avatar: user.avatar
+    avatar: user.avatar,
   });
 });
 
 //@desc Edit Basic User Info
 //@route PUT /api/users/me
+//@body newFirstName, newLastName, email, newEmail
 //@access Private
 const editUser = asyncHandler(async (req, res) => {
   const { newFirstName, newLastName, email, newEmail } = req.body;
@@ -129,26 +129,28 @@ const editUser = asyncHandler(async (req, res) => {
   );
 });
 
-//@desc Edit User Avatar Image
+//@desc Upload an image to s3, delete the previous one, and send the link to it in the response
 //@route POST /api/users/me/avatar
+//@body image, ext, imageName, type
 //@access Private
 const editUserAvatar = asyncHandler(async (req, res) => {
-  const { userId, image, ext, imageName } = req.body;
-  if (!userId || !image || !ext || !imageName) {
+  const { image, ext, type } = req.body;
+  const { _id } = req.user;
+
+  if (!image || !ext || !type) {
     res.status(400);
     throw new Error("Invalid body");
   }
 
   //Delete the previous image
-  await deleteAvatarFolder(`${userId}/avatar`);
-
+  await deleteAvatarFolder(`${_id}/avatar`);
 
   const imgId = crypto.randomBytes(16).toString("hex");
 
-  const uploadedImage = await uploadImage(userId, ext, image, imgId);
+  const uploadedImage = await uploadImage(ext, image, imgId, type, _id);
 
   const conditions = {
-    _id: userId,
+    _id
   };
 
   const update = {

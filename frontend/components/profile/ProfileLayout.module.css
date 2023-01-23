@@ -1,6 +1,8 @@
 .contain {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .layout {
   margin-top: 5vh;
@@ -8,4 +10,13 @@
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  padding-bottom: 30px;
+}
+
+.posts_layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
 }

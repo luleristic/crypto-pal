@@ -3,11 +3,6 @@
     position: relative;
 }
 
-.avatar {
-    border-radius: 50%;
-    overflow: hidden;
-}
-
 .info, .stats {
     display: flex;
     align-items: center;

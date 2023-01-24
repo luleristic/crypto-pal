@@ -55,9 +55,23 @@ const addPost = async (body, token) => {
     return err;
   }
 };
+
+const fetchUserPosts = async (body, token) => {
+  try {
+    const response = await axios.post(API_URL + "/posts/user", body, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+};
 module.exports = {
   editUser,
   editUserAvatar,
   getSignedUrl,
-  addPost
+  addPost,
+  fetchUserPosts
 };

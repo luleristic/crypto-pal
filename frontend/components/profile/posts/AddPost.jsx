@@ -1,18 +1,26 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { useSelector } from "react-redux";
+import { userPosts } from "../../../features/posts/postsSlice";
 import { handleImageInput } from "../../../helpers/upload";
+import { useDispatch } from "react-redux";
 
 import { addPost } from "../../../helpers/api";
 
 function AddPost() {
   const imageFileInput = useRef(null);
-  const { token } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const uploadPostHandler = async (event) => {
     const file = await handleImageInput(event, "posts");
-    const response = await addPost(file, token);
-    console.log(response);
+    await addPost(file, token);
+
+    const body = {
+      username: user.username,
+      token
+    }
+    dispatch(userPosts(body));
   };
 
   const handleUploadClick = () => {

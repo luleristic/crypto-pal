@@ -11,12 +11,13 @@ function RegisterForm() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName:"",
+    username:"",
     email: "",
     password: "",
     password2: "",
   });
 
-  const { firstName, lastName , email, password } = formData;
+  const { firstName, lastName , username, email, password } = formData;
 
   const dispatch = useDispatch();
 
@@ -50,6 +51,7 @@ function RegisterForm() {
     const userData = {
       firstName,
       lastName,
+      username,
       email,
       password
     };
@@ -75,12 +77,22 @@ function RegisterForm() {
           />
         </div>
         <div className={classes.input_holder}>
-          <label htmlFor="firstName">Last Name</label>
+          <label htmlFor="lastName">Last Name</label>
           <input
             type="lastName"
             name="lastName"
             id="lastName"
             value={lastName}
+            onChange={onChange}
+          />
+        </div>
+        <div className={classes.input_holder}>
+          <label htmlFor="username">Username</label>
+          <input
+            type="username"
+            name="username"
+            id="username"
+            value={username}
             onChange={onChange}
           />
         </div>

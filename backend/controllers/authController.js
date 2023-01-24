@@ -13,8 +13,8 @@ const { uploadImage, deleteAvatarFolder } = require("../helpers/upload");
 //@body firstName, lastName, email, password
 //@access Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
-  if (!firstName || !lastName || !email || !password) {
+  const { firstName, lastName, username, email, password } = req.body;
+  if (!firstName || !lastName || !username || !email || !password) {
     res.status(400);
     throw new Error("Please add all fields");
   }
@@ -35,6 +35,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     firstName,
     lastName,
+    username,
     email,
     password: hashedPassword,
   });
@@ -77,8 +78,9 @@ const getUser = asyncHandler(async (req, res) => {
   res.status(200).json({
     firstName: user.firstName,
     lastName: user.lastName,
+    username: user.username,
     email: user.email,
-    avatar: user.avatar,
+    avatar: user.avatar
   });
 });
 

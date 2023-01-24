@@ -1,6 +1,7 @@
 .img_holder {
     width: fit-content;
     position: relative;
+    margin-right: 100px;
 }
 
 .info, .stats {

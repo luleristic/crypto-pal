@@ -29,7 +29,7 @@ function ShowAvatar() {
           console.log(error.data.message);
         });
     }
-  }, [user, token]);
+  }, [user.avatar, token]);
   return (
     <>
       <Image

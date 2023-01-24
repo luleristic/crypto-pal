@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import EditAvatar from "./EditAvatar";
 import ShowAvatar from "./ShowAvatar";
+
 function ProfileHeader() {
   const { user } = useSelector((state) => state.auth);
 
@@ -15,7 +16,7 @@ function ProfileHeader() {
       </div>
       <div className={classes.data_holder}>
         <div className={classes.info}>
-          <p>{user.email}</p>
+          <p>{user.username}</p>
           <EditAvatar></EditAvatar>
         </div>
         <div className={classes.stats}>
